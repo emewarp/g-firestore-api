@@ -1,6 +1,6 @@
 ﻿namespace MyFirestoreApi.Abstractions
 {
-    interface IMyFirestoreService
+    interface IMyFirestoreClientService
     {
         string GetClient();
         string CreateClient();

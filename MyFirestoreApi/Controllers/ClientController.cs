@@ -15,7 +15,7 @@ namespace MyFirestoneApi.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public string Get(string id)
         {
 
 
