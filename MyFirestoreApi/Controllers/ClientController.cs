@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyFirestoreApi;
+using MyFirestoreApi.Abstractions;
+using MyFirestoreApi.Models;
+using System.Threading.Tasks;
 
 namespace MyFirestoneApi.Controllers
 {
@@ -8,29 +13,29 @@ namespace MyFirestoneApi.Controllers
     public class ClientController : ControllerBase
     {
         private readonly ILogger<ClientController> _logger;
+        private IMyFirestoreClientService _service;
 
         public ClientController(ILogger<ClientController> logger)
         {
             _logger = logger;
+            _service = new MyFirestoreClientService(new MyFirestoreDb()); //TODO DI
         }
 
         [HttpGet]
-        public string Get(string id)
+        public async Task<IActionResult> GetClient(string id)
         {
+            var client = await _service.GetClient(id);
+            return client != null ? (IActionResult)Ok(client) : (IActionResult)BadRequest();    
+        }
 
 
-            //DocumentReference docRef = db.Collection("users").Document("alovelace");
-            //Dictionary<string, object> user = new Dictionary<string, object>
-            //{
-            //    { "name", "Marta Warp" },
-            //    { "mail", "martawarp@gmail.com" },
-            //    { "phone", "123456789" },
-            //    { "card", "blahblahbalh" }
-            //};
-            //var result = docRef.SetAsync(user).Result;
 
+        [HttpPost]
+        public async Task <IActionResult> PostClient(Client client)
+        {
+            bool created = await _service.CreateClient(client);
 
-            return "heyyyyy";
+            return created ? (IActionResult)Ok(client) : (IActionResult)BadRequest();
         }
     }
 }

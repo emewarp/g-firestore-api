@@ -7,7 +7,7 @@ namespace MyFirestoreApi
     {
         public FirestoreDb GetFirestoreDb()
         {
-            string project = "testproject-266710"; //read from json
+            string project = "theviquesapp"; //read from json
             return FirestoreDb.Create(project);
         }
     }
