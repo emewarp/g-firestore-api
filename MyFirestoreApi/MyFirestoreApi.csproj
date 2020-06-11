@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Cloud.Firestore" Version="2.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
 
 
