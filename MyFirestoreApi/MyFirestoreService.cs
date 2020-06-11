@@ -10,8 +10,7 @@ namespace MyFirestoreApi
 
         public MyFirestoreService(IMyFirestoreDb db)
         {
-            //Db = db.GetFirestoreDb();
-            Db = new MyFirestoreDb().GetFirestoreDb(); //TODO DI
+            Db = db.GetFirestoreDb();
         }
     }
 }

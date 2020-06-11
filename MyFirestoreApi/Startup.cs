@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyFirestoreApi;
+using MyFirestoreApi.Abstractions;
 
 namespace MyFirestoneApi
 {
@@ -28,6 +23,10 @@ namespace MyFirestoneApi
         {
             services.AddControllers();
 
+            // Dependency Injection
+            services.AddSingleton(typeof(IMyFirestoreClientService), typeof(MyFirestoreClientService));
+            services.AddSingleton(typeof(IMyFirestoreDb), typeof(MyFirestoreDb));
+            
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

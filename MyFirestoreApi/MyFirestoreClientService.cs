@@ -122,10 +122,6 @@ namespace MyFirestoreApi
                 if(!string.IsNullOrEmpty(clientDto.Mail)) await clientRef.UpdateAsync("mail", clientDto.Mail);
                 if(!string.IsNullOrEmpty(clientDto.Phone)) await clientRef.UpdateAsync("phone", clientDto.Phone);
                 if(!string.IsNullOrEmpty(clientDto.Card)) await clientRef.UpdateAsync("card", clientDto.Card);
-                //string.IsNullOrEmpty(clientDto.Name) ? await clientRef.UpdateAsync("name", clientDto.Name) : ;
-                //string.IsNullOrEmpty(clientDto.Mail) ? await clientRef.UpdateAsync("mail", clientDto.Mail) : ;
-                //string.IsNullOrEmpty(clientDto.Phone) ? await clientRef.UpdateAsync("phone", clientDto.Phone) : ;
-                //string.IsNullOrEmpty(clientDto.Card) ? await clientRef.UpdateAsync("card", clientDto.Card) : ;
             }
             catch(Exception e)
             {

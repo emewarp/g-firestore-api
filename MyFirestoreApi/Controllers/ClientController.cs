@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MyFirestoreApi;
 using MyFirestoreApi.Abstractions;
 using MyFirestoreApi.Models;
 using System.Threading.Tasks;
@@ -10,14 +8,12 @@ namespace MyFirestoneApi.Controllers
     [ApiController]
     [Route("[controller]")]
     public class ClientController : ControllerBase
-    {
-        private readonly ILogger<ClientController> _logger;
+    {        
         private IMyFirestoreClientService _service;
 
-        public ClientController(ILogger<ClientController> logger)
+        public ClientController(IMyFirestoreClientService service)
         {
-            _logger = logger;
-            _service = new MyFirestoreClientService(new MyFirestoreDb()); //TODO DI
+            _service = service;
         }
 
         [HttpGet("get")]

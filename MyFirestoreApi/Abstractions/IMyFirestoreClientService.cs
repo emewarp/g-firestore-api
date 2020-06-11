@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MyFirestoreApi.Abstractions
 {
-    interface IMyFirestoreClientService
+    public interface IMyFirestoreClientService
     {
         Task<List<Client>> GetAllClients();
         Task<Client> GetClientById(string id);
