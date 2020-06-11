@@ -17,16 +17,18 @@ namespace MyFirestoreApi
         #region Public Methods
         public async Task<List<Client>> GetAllClients()
         {
-            return new List<Client>();
+            List <Client> clients = new List<Client>();
+            QuerySnapshot snapshot = await GetClientSnapshot();
+            foreach (DocumentSnapshot documentClient in snapshot.Documents) // Get clients (snapshot.Documents)
+            {
+                clients.Add(GetClient(documentClient));
+            }
+            return clients;
         }
         public async Task<Client> GetClientById(string clientId)
         {
-            // Get db
-            CollectionReference usersRef = Db.Collection(COLLECTION); 
-            // Get client table
-            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
-            // Get clients (snapshot.Documents)
-            foreach (DocumentSnapshot documentClient in snapshot.Documents) 
+            QuerySnapshot snapshot = await GetClientSnapshot();            
+            foreach (DocumentSnapshot documentClient in snapshot.Documents) // Get clients (snapshot.Documents)
             {
                 if (documentClient.Id.Equals(clientId))
                 {
@@ -114,6 +116,13 @@ namespace MyFirestoreApi
                 Card = documentClientDictionary["card"].ToString()
             };
             return client;
+        }
+        private async Task<QuerySnapshot> GetClientSnapshot()
+        {            
+            CollectionReference usersRef = Db.Collection(COLLECTION); // Get db           
+            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync(); // Get client table
+
+            return snapshot;
         }
         private string CreateRandomId()
         {

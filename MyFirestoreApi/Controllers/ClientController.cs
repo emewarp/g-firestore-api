@@ -23,8 +23,10 @@ namespace MyFirestoneApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClient(string id)
         {
-            var client = await _service.GetClientById(id);
-            return client != null ? (IActionResult)Ok(client) : (IActionResult)BadRequest();    
+            //var client = await _service.GetClientById(id);
+            //return client != null ? (IActionResult)Ok(client) : (IActionResult)BadRequest();    
+            var clients = await _service.GetAllClients();
+            return clients != null ? (IActionResult)Ok(clients) : (IActionResult)BadRequest();
         }
 
 
