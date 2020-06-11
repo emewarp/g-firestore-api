@@ -14,7 +14,12 @@ namespace MyFirestoreApi
 
         public MyFirestoreClientService(IMyFirestoreDb db): base(db) { }
 
-        public async Task<Client> GetClient(string clientId)
+        #region Public Methods
+        public async Task<List<Client>> GetAllClients()
+        {
+            return new List<Client>();
+        }
+        public async Task<Client> GetClientById(string clientId)
         {
             // Get db
             CollectionReference usersRef = Db.Collection(COLLECTION); 
@@ -25,16 +30,7 @@ namespace MyFirestoreApi
             {
                 if (documentClient.Id.Equals(clientId))
                 {
-                    Dictionary<string, object> documentClientDictionary = documentClient.ToDictionary(); //client columns
-                    Client client = new Client
-                    {
-                        Id = clientId,
-                        Name = documentClientDictionary["name"].ToString(),
-                        Mail = documentClientDictionary["mail"].ToString(),
-                        Phone = documentClientDictionary["phone"].ToString(),
-                        Card = documentClientDictionary["card"].ToString()
-                    };
-                    return client;
+                    return GetClient(documentClient);
                 }                    
             }
             return null;
@@ -46,10 +42,11 @@ namespace MyFirestoreApi
             client.Id = CreateRandomId();
 
             try
-            {
+            {             
                 DocumentReference docRef = Db.Collection(COLLECTION).Document(client.Id);
                 Dictionary<string, object> user = new Dictionary<string, object>
                 {
+                    { "id", client.Id },
                     { "name", client.Name },
                     { "mail", client.Mail },
                     { "phone", client.Phone },
@@ -62,15 +59,38 @@ namespace MyFirestoreApi
             }
             catch(Exception e)
             {
-                ///log??
+                // tdo 
             }
 
             return created;
         }
 
-        public bool DeleteClient(string clientId)
+        public async Task<bool> DeleteClient(string clientId)
         {
-            throw new System.NotImplementedException();
+            bool deleted = false;
+
+            try
+            {
+                DocumentReference cityRef = Db.Collection(COLLECTION).Document(clientId);
+                // Delete document does NOT delete subcollections, we have to delete them separately
+                Dictionary<string, object> updates = new Dictionary<string, object>
+                {
+                     { "name", FieldValue.Delete },
+                     { "mail", FieldValue.Delete },
+                     { "phone", FieldValue.Delete },
+                     { "card", FieldValue.Delete }
+                };
+                await cityRef.UpdateAsync(updates); //update collection deleting fields
+                await cityRef.DeleteAsync(); //delete collection
+                
+                deleted = true;
+            }
+            catch(Exception e)
+            {
+                //todo
+            }            
+
+            return deleted;
         }
 
        
@@ -79,9 +99,26 @@ namespace MyFirestoreApi
             throw new System.NotImplementedException();
         }
 
+       #endregion
+
+        #region Private Methods
+        private Client GetClient(DocumentSnapshot documentClient)
+        {
+            Dictionary<string, object> documentClientDictionary = documentClient.ToDictionary(); //client columns
+            Client client = new Client
+            {
+                Id = documentClientDictionary["id"].ToString(),
+                Name = documentClientDictionary["name"].ToString(),
+                Mail = documentClientDictionary["mail"].ToString(),
+                Phone = documentClientDictionary["phone"].ToString(),
+                Card = documentClientDictionary["card"].ToString()
+            };
+            return client;
+        }
         private string CreateRandomId()
         {
             return Guid.NewGuid().ToString();
         }
+        #endregion
     }
 }

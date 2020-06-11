@@ -1,13 +1,15 @@
 ﻿using MyFirestoreApi.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyFirestoreApi.Abstractions
 {
     interface IMyFirestoreClientService
     {
-        Task<Client> GetClient(string id);
+        Task<List<Client>> GetAllClients();
+        Task<Client> GetClientById(string id);
         Task<bool> CreateClient(Client client);
         string UpdateClient(Client client);
-        bool DeleteClient(string id);
+        Task<bool> DeleteClient(string id);
     }
 }

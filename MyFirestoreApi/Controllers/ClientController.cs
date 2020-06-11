@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyFirestoreApi;
 using MyFirestoreApi.Abstractions;
@@ -24,7 +23,7 @@ namespace MyFirestoneApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClient(string id)
         {
-            var client = await _service.GetClient(id);
+            var client = await _service.GetClientById(id);
             return client != null ? (IActionResult)Ok(client) : (IActionResult)BadRequest();    
         }
 
@@ -36,6 +35,14 @@ namespace MyFirestoneApi.Controllers
             bool created = await _service.CreateClient(client);
 
             return created ? (IActionResult)Ok(client) : (IActionResult)BadRequest();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteClient(string clientId)
+        {
+            bool deleted = await _service.DeleteClient(clientId);
+
+            return deleted ? (IActionResult)Ok(clientId) : (IActionResult)BadRequest();
         }
     }
 }
