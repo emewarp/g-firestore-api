@@ -17,24 +17,40 @@ namespace MyFirestoreApi
         #region Public Methods
         public async Task<List<Client>> GetAllClients()
         {
-            List <Client> clients = new List<Client>();
-            QuerySnapshot snapshot = await GetClientSnapshot();
-            foreach (DocumentSnapshot documentClient in snapshot.Documents) // Get clients (snapshot.Documents)
-            {
-                clients.Add(GetClient(documentClient));
+            List<Client> clients = new List<Client>();
+            try
+            {                
+                QuerySnapshot snapshot = await GetClientSnapshot();
+                foreach (DocumentSnapshot documentClient in snapshot.Documents) // Get clients (snapshot.Documents)
+                {
+                    clients.Add(GetClient(documentClient));
+                }
             }
+            catch(Exception e)
+            {
+                //
+            }
+            
             return clients;
         }
         public async Task<Client> GetClientById(string clientId)
         {
-            QuerySnapshot snapshot = await GetClientSnapshot();            
-            foreach (DocumentSnapshot documentClient in snapshot.Documents) // Get clients (snapshot.Documents)
+            try
             {
-                if (documentClient.Id.Equals(clientId))
+                QuerySnapshot snapshot = await GetClientSnapshot();
+                foreach (DocumentSnapshot documentClient in snapshot.Documents) // Get clients (snapshot.Documents)
                 {
-                    return GetClient(documentClient);
-                }                    
+                    if (documentClient.Id.Equals(clientId))
+                    {
+                        return GetClient(documentClient);
+                    }
+                }
             }
+            catch(Exception e)
+            {
+                //
+            }
+            
             return null;
         }
 
@@ -96,9 +112,26 @@ namespace MyFirestoreApi
         }
 
        
-        public string UpdateClient(Client client)
-        {
-            throw new System.NotImplementedException();
+        public async Task<Client> UpdateClient(string clientId, ClientPutDto clientDto)
+        {         
+            try
+            {
+                DocumentReference clientRef = Db.Collection(COLLECTION).Document(clientId);
+
+                if(!string.IsNullOrEmpty(clientDto.Name)) await clientRef.UpdateAsync("name", clientDto.Name);
+                if(!string.IsNullOrEmpty(clientDto.Mail)) await clientRef.UpdateAsync("mail", clientDto.Mail);
+                if(!string.IsNullOrEmpty(clientDto.Phone)) await clientRef.UpdateAsync("phone", clientDto.Phone);
+                if(!string.IsNullOrEmpty(clientDto.Card)) await clientRef.UpdateAsync("card", clientDto.Card);
+                //string.IsNullOrEmpty(clientDto.Name) ? await clientRef.UpdateAsync("name", clientDto.Name) : ;
+                //string.IsNullOrEmpty(clientDto.Mail) ? await clientRef.UpdateAsync("mail", clientDto.Mail) : ;
+                //string.IsNullOrEmpty(clientDto.Phone) ? await clientRef.UpdateAsync("phone", clientDto.Phone) : ;
+                //string.IsNullOrEmpty(clientDto.Card) ? await clientRef.UpdateAsync("card", clientDto.Card) : ;
+            }
+            catch(Exception e)
+            {
+
+            }
+            return await GetClientById(clientId);
         }
 
        #endregion
@@ -119,8 +152,8 @@ namespace MyFirestoreApi
         }
         private async Task<QuerySnapshot> GetClientSnapshot()
         {            
-            CollectionReference usersRef = Db.Collection(COLLECTION); // Get db           
-            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync(); // Get client table
+            CollectionReference clientsRef = Db.Collection(COLLECTION); // Get db           
+            QuerySnapshot snapshot = await clientsRef.GetSnapshotAsync(); // Get client table
 
             return snapshot;
         }

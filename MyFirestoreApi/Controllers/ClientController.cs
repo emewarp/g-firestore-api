@@ -20,18 +20,21 @@ namespace MyFirestoneApi.Controllers
             _service = new MyFirestoreClientService(new MyFirestoreDb()); //TODO DI
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetClient(string id)
-        {
-            //var client = await _service.GetClientById(id);
-            //return client != null ? (IActionResult)Ok(client) : (IActionResult)BadRequest();    
+        [HttpGet("get")]
+        public async Task<IActionResult> GetAllClients()
+        {            
             var clients = await _service.GetAllClients();
             return clients != null ? (IActionResult)Ok(clients) : (IActionResult)BadRequest();
         }
 
+        [HttpGet("get/{id}")]
+        public async Task<IActionResult> GetClientById(string id)
+        {
+            var client = await _service.GetClientById(id);
+            return client != null ? (IActionResult)Ok(client) : (IActionResult)BadRequest();
+        }
 
-
-        [HttpPost]
+        [HttpPost("create")]
         public async Task <IActionResult> PostClient(Client client)
         {
             bool created = await _service.CreateClient(client);
@@ -39,7 +42,14 @@ namespace MyFirestoneApi.Controllers
             return created ? (IActionResult)Ok(client) : (IActionResult)BadRequest();
         }
 
-        [HttpDelete]
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateClient(string id, ClientPutDto clientDto)
+        {
+            var updatedClient = await _service.UpdateClient(id, clientDto);
+            return updatedClient != null ? (IActionResult)Ok(updatedClient) : (IActionResult)BadRequest();
+        }
+
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteClient(string clientId)
         {
             bool deleted = await _service.DeleteClient(clientId);

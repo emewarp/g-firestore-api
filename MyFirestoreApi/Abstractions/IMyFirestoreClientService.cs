@@ -9,7 +9,7 @@ namespace MyFirestoreApi.Abstractions
         Task<List<Client>> GetAllClients();
         Task<Client> GetClientById(string id);
         Task<bool> CreateClient(Client client);
-        string UpdateClient(Client client);
+        Task<Client> UpdateClient(string id, ClientPutDto clientDto);
         Task<bool> DeleteClient(string id);
     }
 }
