@@ -9,5 +9,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyFirestoreDomain\MyFirestoreDomain.csproj" />
+    <ProjectReference Include="..\MyFirestoreModels\MyFirestoreModels.csproj" />
+  </ItemGroup>
+
 
 </Project>

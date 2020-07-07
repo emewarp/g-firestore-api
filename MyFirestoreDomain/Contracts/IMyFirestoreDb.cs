@@ -1,6 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 
-namespace MyFirestoreApi.Abstractions
+namespace MyFirestoreDomain.Contracts
 {
     public interface IMyFirestoreDb
     {

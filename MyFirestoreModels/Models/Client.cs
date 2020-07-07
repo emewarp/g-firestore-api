@@ -1,4 +1,4 @@
-﻿namespace MyFirestoreApi.Models
+﻿namespace MyFirestoreModels.Models
 {
     public class Client
     {

@@ -1,4 +1,4 @@
-﻿namespace MyFirestoreApi.Models
+﻿namespace MyFirestoreModels.Dto
 {
     public class ClientPutDto
     {

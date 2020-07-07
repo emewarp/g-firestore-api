@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyFirestoreApi.Abstractions;
-using MyFirestoreApi.Models;
+using MyFirestoreDomain.Contracts;
+using MyFirestoreModels.Dto;
+using MyFirestoreModels.Models;
 using System.Threading.Tasks;
 
 namespace MyFirestoneApi.Controllers

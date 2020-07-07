@@ -1,5 +1,5 @@
 ﻿using Google.Cloud.Firestore;
-using MyFirestoreApi.Abstractions;
+using MyFirestoreDomain.Contracts;
 
 namespace MyFirestoreApi
 {

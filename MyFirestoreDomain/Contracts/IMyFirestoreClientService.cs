@@ -1,8 +1,9 @@
-﻿using MyFirestoreApi.Models;
+﻿using MyFirestoreModels.Dto;
+using MyFirestoreModels.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyFirestoreApi.Abstractions
+namespace MyFirestoreDomain.Contracts
 {
     public interface IMyFirestoreClientService
     {
