@@ -14,5 +14,4 @@
     <ProjectReference Include="..\MyFirestoreModels\MyFirestoreModels.csproj" />
   </ItemGroup>
 
-
 </Project>
