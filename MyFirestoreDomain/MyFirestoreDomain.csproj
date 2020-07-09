@@ -9,6 +9,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\MyFirestoreCrossCutting\MyFirestoreCrossCutting.csproj" />
     <ProjectReference Include="..\MyFirestoreModels\MyFirestoreModels.csproj" />
   </ItemGroup>
 

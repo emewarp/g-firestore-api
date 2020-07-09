@@ -1,13 +1,14 @@
 ﻿using Google.Cloud.Firestore;
+using MyFirestoreCrossCutting;
 using MyFirestoreDomain.Contracts;
 
-namespace MyFirestoreApi
+namespace MyFirestoreDomain
 {
     public class MyFirestoreDb : IMyFirestoreDb
     {
         public FirestoreDb GetFirestoreDb()
         {
-            string project = "theviquesapp"; //read from json
+            string project = ConfigDownloader.GetProjectName();
             return FirestoreDb.Create(project);
         }
     }

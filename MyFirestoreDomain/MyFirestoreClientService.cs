@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyFirestoreApi
+namespace MyFirestoreDomain
 {
     public class MyFirestoreClientService : MyFirestoreService, IMyFirestoreClientService
     {

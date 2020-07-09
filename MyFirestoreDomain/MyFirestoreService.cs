@@ -2,7 +2,7 @@
 using Google.Cloud.Firestore;
 using MyFirestoreDomain.Contracts;
 
-namespace MyFirestoreApi
+namespace MyFirestoreDomain
 {
     public class MyFirestoreService
     {
