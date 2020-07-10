@@ -26,7 +26,6 @@ namespace MyFirestoneApi
 
             // Dependency Injection
             services.AddSingleton(typeof(IMyFirestoreClientService), typeof(MyFirestoreClientService));
-            services.AddSingleton(typeof(IMyFirestoreDb), typeof(MyFirestoreDb));
             
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

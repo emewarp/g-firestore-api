@@ -13,7 +13,7 @@ namespace MyFirestoreDomain
         
         public const string COLLECTION = "clients";
 
-        public MyFirestoreClientService(IMyFirestoreDb db): base(db) { }
+        public MyFirestoreClientService(): base() { }
 
         #region Public Methods
         public async Task<List<Client>> GetAllClients()

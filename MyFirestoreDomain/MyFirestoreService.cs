@@ -1,6 +1,6 @@
 ﻿
 using Google.Cloud.Firestore;
-using MyFirestoreDomain.Contracts;
+using MyFirestoreCrossCutting;
 
 namespace MyFirestoreDomain
 {
@@ -8,9 +8,9 @@ namespace MyFirestoreDomain
     {
         public FirestoreDb Db { get; private set; }
 
-        public MyFirestoreService(IMyFirestoreDb db)
+        public MyFirestoreService()
         {
-            Db = db.GetFirestoreDb();
+            Db = MyFirestoreDb.GetFirestoreDb();
         }
     }
 }
