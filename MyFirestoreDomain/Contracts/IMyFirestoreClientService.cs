@@ -9,8 +9,8 @@ namespace MyFirestoreDomain.Contracts
     {
         Task<List<Client>> GetAllClients();
         Task<Client> GetClientById(string id);
-        Task<bool> CreateClient(Client client);
-        Task<Client> UpdateClient(string id, ClientPutDto clientDto);
+        Task<bool> CreateClient(ClientDto client);
+        Task<Client> UpdateClient(string id, ClientDto clientDto);
         Task<bool> DeleteClient(string id);
     }
 }

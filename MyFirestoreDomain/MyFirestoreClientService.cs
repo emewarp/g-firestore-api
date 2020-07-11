@@ -40,15 +40,15 @@ namespace MyFirestoreDomain
             return null;
         }
 
-        public async Task<bool> CreateClient(Client client)
+        public async Task<bool> CreateClient(ClientDto client)
         {
             bool created = false;
-            client.Id = CreateRandomId();
+            string id = CreateRandomId();
 
-            DocumentReference docRef = Db.Collection(COLLECTION).Document(client.Id);
+            DocumentReference docRef = Db.Collection(COLLECTION).Document(id);
             Dictionary<string, object> user = new Dictionary<string, object>
                 {
-                    { "id", client.Id },
+                    { "id", id },
                     { "name", client.Name },
                     { "mail", client.Mail },
                     { "phone", client.Phone },
@@ -84,7 +84,7 @@ namespace MyFirestoreDomain
         }
 
        
-        public async Task<Client> UpdateClient(string clientId, ClientPutDto clientDto)
+        public async Task<Client> UpdateClient(string clientId, ClientDto clientDto)
         {
 
             DocumentReference clientRef = Db.Collection(COLLECTION).Document(clientId);
