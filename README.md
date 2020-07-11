@@ -6,6 +6,8 @@ It is also a gateway to [G Firestore API](https://cloud.google.com/firestore?hl=
 ## Pre-requisites
 Create a GCP project, generate OAuth2.0 authentication, download credentials and copy them in root folder with the name "credentials.json"
 
+Set GOOGLE_APPLICATION_CREDENTIALS environment value to the path of credentials.json
+
 [GCP project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
 
 ## Initialization
