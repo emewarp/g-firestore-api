@@ -27,6 +27,19 @@ namespace MyFirestoneApi
             // Dependency Injection
             services.AddSingleton(typeof(IMyFirestoreClientService), typeof(MyFirestoreClientService));
             
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+            
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
